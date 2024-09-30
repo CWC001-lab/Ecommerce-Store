@@ -1,9 +1,11 @@
 "use client"
 import { useState, useEffect } from 'react';
 
-const formatter = new Intl.NumberFormat('en-US', {
+const formatter = new Intl.NumberFormat('en-NG', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'NGN',
+    minimumFractionDigits: 0, // Nigerian Naira typically doesn't use decimal places
+    maximumFractionDigits: 0
 })
 
 interface CurrencyProps {
