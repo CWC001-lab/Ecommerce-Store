@@ -30,13 +30,15 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
                 {/* Dialog Position */}
                 <div className="fixed inset-0 z-40 flex">
                     <Dialog.Panel className="relative flex flex-col w-full h-full max-w-xs py-4 pb-6 ml-auto overflow-y-auto bg-white shadow-xl">
-                        {/* Close Button */}
-                        <div className="flex items-center justify-end px-4">
-                            <IconButton icon={<X size={15} onClick={onClose} />} />
-                        </div>
                         {/* Render the filters */}
                         <div className="p-4">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-lg font-semibold">Sizes</h3>
+                                {/* <IconButton icon={<X size={15} />} onClick={onClose} /> */}
+                            </div>
+                            <IconButton icon={<X size={15} />} onClick={onClose} />
                             <Filter valueKey="sizeId" name="Sizes" data={sizes} />
+
                             <Filter valueKey="colorId" name="Colors" data={colors} />
                         </div>
                     </Dialog.Panel>
