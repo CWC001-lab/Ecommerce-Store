@@ -9,6 +9,17 @@ export const revalidate = 0;
 const Navbar = async () => {
     const categories = await getCategories();
 
+    const routes = [
+        {
+            href: '/about',
+            label: 'About',
+        },
+        {
+            href: '/contact',
+            label: 'Contact',
+        },
+    ];
+
     return (
         <div className="border-b">
             <Container>
@@ -16,7 +27,7 @@ const Navbar = async () => {
                     <Link href="/" className="flex ml-4 lg:ml-0 gap-x-2">
                         <p className="text-xl font-bold">F-B-O</p>
                     </Link>
-                    <MainNav data={categories || []} />
+                    <MainNav data={categories || []} routes={routes} />
                     <NavbarActions />
                 </div>
             </Container>
