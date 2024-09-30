@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation'
 import { Category } from '@/types';
 import ProductsDropdown from './ProductsDropdown';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface MainNavProps {
     data: Category[];
@@ -16,16 +17,34 @@ const MainNav: React.FC<MainNavProps> = ({ data, routes }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     return (
-        <nav className='flex items-center mx-6 space-x-4 lg:space-x-6'>
-            <Link 
-                href="/" 
-                className={cn(
-                    'text-sm font-medium transition-colors hover:text-black',
-                    pathname === '/' ? 'text-black' : 'text-neutral-500'
-                )}
-            >
-                Home
-            </Link>
+        <nav className='flex items-center justify-between w-full'>
+            <div className="flex items-center space-x-8">
+                <Link 
+                    href="/" 
+                    className={cn(
+                        'text-sm font-medium transition-colors hover:text-black relative group',
+                        pathname === '/' ? 'text-black' : 'text-neutral-500'
+                    )}
+                    style={{ fontSize: 'calc(100% + 4%)' }}
+                >
+                    Home
+                    <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                </Link>
+                {routes.map((route) => (
+                    <Link 
+                        key={route.href} 
+                        href={route.href} 
+                        className={cn(
+                            'text-sm font-medium transition-colors hover:text-black relative group',
+                            pathname === route.href ? 'text-black' : 'text-neutral-500'
+                        )}
+                        style={{ fontSize: 'calc(100% + 4%)' }}
+                    >
+                        {route.label}
+                        <span className="absolute left-0 bottom-0 w-full h-0.5 bg-black transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+                    </Link>
+                ))}
+            </div>
             <div 
                 className="relative"
                 onMouseEnter={() => setIsDropdownOpen(true)}
@@ -33,26 +52,16 @@ const MainNav: React.FC<MainNavProps> = ({ data, routes }) => {
             >
                 <button 
                     className={cn(
-                        'text-sm font-medium transition-colors hover:text-black',
+                        'text-sm font-medium transition-colors hover:text-black flex items-center',
                         isDropdownOpen ? 'text-black' : 'text-neutral-500'
                     )}
+                    style={{ fontSize: 'calc(100% + 4%)' }}
                 >
                     Products
+                    {isDropdownOpen ? <ChevronUp className="ml-1 h-4 w-4" /> : <ChevronDown className="ml-1 h-4 w-4" />}
                 </button>
                 {isDropdownOpen && <ProductsDropdown categories={data} />}
             </div>
-            {routes.map((route) => (
-                <Link 
-                    key={route.href} 
-                    href={route.href} 
-                    className={cn(
-                        'text-sm font-medium transition-colors hover:text-black',
-                        pathname === route.href ? 'text-black' : 'text-neutral-500'
-                    )}
-                >
-                    {route.label}
-                </Link>
-            ))}
         </nav>
     )
 }

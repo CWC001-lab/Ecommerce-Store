@@ -23,15 +23,22 @@ const Navbar = async () => {
     return (
         <div className="border-b">
             <Container>
-                <div className="relative flex items-center h-16 px-4 sm:px-6 lg:px-8">
-                    <Link href="/" className="flex ml-4 lg:ml-0 gap-x-2">
-                        <p className="text-xl font-bold">F-B-O</p>
-                    </Link>
-                    <MainNav data={categories || []} routes={routes} />
-                    <NavbarActions />
+                <div className="relative flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center flex-1">
+                        <Link href="/" className="mr-8">
+                            <p className="text-3xl font-extrabold" style={{ fontSize: 'calc(100% + 16%)' }}>F-B-O</p>
+                        </Link>
+                        <div className="flex-grow">
+                            <MainNav data={categories || []} routes={routes} />
+                        </div>
+                    </div>
+                    <div className="ml-20">
+                        <NavbarActions />
+                    </div>
                 </div>
             </Container>
         </div>
     )
 }
+
 export default Navbar;
