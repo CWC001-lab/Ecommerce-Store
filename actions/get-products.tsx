@@ -11,17 +11,32 @@ interface Query {
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
-    const url = qs.stringifyUrl({
-        url: URL,
-        query: {
-            colorId: query.colorId,
-            sizeId: query.sizeId,
-            categoryId: query.categoryId,
-            isFeatured: query.isFeatured
+    try {
+        const url = qs.stringifyUrl({
+            url: URL,
+            query: {
+                colorId: query.colorId,
+                sizeId: query.sizeId,
+                categoryId: query.categoryId,
+                isFeatured: query.isFeatured
+            }
+        })
+        
+        const res = await fetch(url, {
+            next: { revalidate: 60 }, // Cache for 1 minute
+            signal: AbortSignal.timeout(5000) // 5 second timeout
+        });
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
-    })
-    const res = await fetch(url);
-    return res.json();
+        
+        return res.json();
+    } catch (error) {
+        console.warn('Failed to fetch products, using fallback data:', error);
+        // Return empty array as fallback
+        return [];
+    }
 }
 
 export default getProducts;

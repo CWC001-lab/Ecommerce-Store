@@ -13,11 +13,14 @@ const Summary = () => {
     const searchParams = useSearchParams();
     const items = useCart(state => state.items);
     const removeAll = useCart(state => state.removeAll);
-    const totalPrice = items.reduce((total, item) => total + Number(item.price), 0);
+    const totalPrice = items.filter(item => item?.product?.price).reduce((total, item) => total + (Number(item.product.price) * item.quantity), 0);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [address, setAddress] = useState('');
+    const [customerName, setCustomerName] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');
+    const [isProcessing, setIsProcessing] = useState(false);
 
     useEffect(() => {
         if(searchParams.get('success')) {
@@ -33,45 +36,92 @@ const Summary = () => {
         setIsModalOpen(true);
     };
 
-    const handleCheckout = () => {
-        const subject = "New Order Alert From FBO Store";
-        const body = `Hello, I would like to purchase the following items: ${items.map(item => item.name).join(', ')} which total to ${totalPrice}. My phone number is ${phoneNumber} and my address is ${address}. Thank you.`;
-        const mailtoLink = `mailto:oderindeoluwadamilola46@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const handleCheckout = async () => {
+        if (!customerName || !customerEmail || !phoneNumber || !address) {
+            toast.error("Please fill in all required fields");
+            return;
+        }
 
-        window.location.href = mailtoLink;
+        setIsProcessing(true);
+        
+        try {
+            const orderData = {
+                customerName,
+                customerEmail,
+                phoneNumber,
+                address,
+                items: items.filter(item => item?.product?.id).map(item => ({
+                    id: item.product.id,
+                    name: item.product.name,
+                    quantity: item.quantity,
+                    price: parseFloat(item.product.price)
+                })),
+                totalAmount: totalPrice
+            };
 
-        // Proceed with checkout logic if needed
-        // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-        //     productIds: items.map(item => item.id),
-        // });
-        // window.location = response.data.url;
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`, orderData);
+            
+            if (response.data.success) {
+                // Check if emails were sent successfully
+                const emailStatus = response.data.emailStatus;
+                if (emailStatus && emailStatus.customerEmail) {
+                    toast.success("Order placed successfully! Check your email for payment instructions.");
+                } else {
+                    toast.success("Order placed successfully! Please note the payment details below.");
+                }
+                
+                setIsModalOpen(false);
+                removeAll();
+                
+                // Store order details for receipt upload
+                localStorage.setItem('lastOrder', JSON.stringify({
+                    orderId: response.data.orderId,
+                    customerName,
+                    customerEmail,
+                    receiptUploadLink: response.data.receiptUploadLink,
+                    bankDetails: response.data.bankDetails
+                }));
+            } else {
+                toast.error("Failed to place order. Please try again.");
+            }
+        } catch (error) {
+            console.error('Error placing order:', error);
+            toast.error("Failed to place order. Please try again.");
+        } finally {
+            setIsProcessing(false);
+        }
     };
 
     return ( 
-        <div className='px-4 py-6 mt-16 rounded-lg bg-gray-50 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8'>
-            <h2 className='text-lg font-medium text-gray-900'>Order Summary</h2>
+        <div className='px-4 py-6 mt-16 rounded-lg bg-gray-50 dark:bg-slate-800 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8'>
+            <h2 className='text-lg font-medium text-gray-900 dark:text-slate-100'>Order Summary</h2>
             <div className='mt-6 space-y-4'>
-                <div className='flex items-center justify-between pt-4 border-t border-gray-200'>
-                    <div className='text-base font-medium text-gray-400'>
+                <div className='flex items-center justify-between pt-4 border-t border-gray-200 dark:border-slate-600'>
+                    <div className='text-base font-medium text-gray-400 dark:text-slate-300'>
                         Order Total
                     </div>
                     <Currency value={totalPrice} />
                 </div>
             </div>
-            <Button disabled={items.length === 0} className='w-full mt-6' onClick={onCheckout}>
-                Continue to checkout
+            <Button disabled={items.length === 0 || isProcessing} className='w-full mt-6' onClick={onCheckout}>
+                {isProcessing ? 'Processing...' : 'Continue to checkout'}
             </Button>
             {/* Modal for user input */}
             <OrderConfirmationModal 
                 isOpen={isModalOpen} 
                 onClose={() => setIsModalOpen(false)} 
-                items={items.map(item => ({ id: item.id, name: item.name, price: parseFloat(item.price) }))}
+                items={items.filter(item => item?.product?.id).map(item => ({ id: item.product.id, name: item.product.name, price: parseFloat(item.product.price) * item.quantity }))}
                 totalPrice={totalPrice} 
                 phoneNumber={phoneNumber} 
                 setPhoneNumber={setPhoneNumber} 
                 address={address} 
-                setAddress={setAddress} 
-                onConfirm={handleCheckout} 
+                setAddress={setAddress}
+                customerName={customerName}
+                setCustomerName={setCustomerName}
+                customerEmail={customerEmail}
+                setCustomerEmail={setCustomerEmail}
+                onConfirm={handleCheckout}
+                isProcessing={isProcessing}
             />
             {/* <div className="mt-4 text-gray-600">
                 <p>Please enter the correct details and WhatsApp number so an agent can reach out to you after your order has been confirmed.</p>

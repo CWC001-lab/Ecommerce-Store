@@ -1,11 +1,11 @@
 import React from 'react';
-import ContactForm from './components/ContactForm';
+import ContactForm from './components/contact-form';
 import SocialIcons from './components/SocialIcons';
 import Map from './components/Map';
 
 const ContactPage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-slate-900">
       <div className="relative h-64 md:h-80 lg:h-96 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"}}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">Contact Us</h1>

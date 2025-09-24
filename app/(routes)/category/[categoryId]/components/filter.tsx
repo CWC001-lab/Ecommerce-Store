@@ -26,7 +26,7 @@ const Filter: React.FC<FilterProps> = ({ data, name, valueKey }) => {
         }
 
         const url = qs.stringifyUrl({
-            url: window.location.href,
+            url: window.location.pathname,
             query
         }, { skipNull: true })
 
@@ -34,12 +34,12 @@ const Filter: React.FC<FilterProps> = ({ data, name, valueKey }) => {
     }
     return (
         <div className='mb-8'>
-            <h3 className='text-lg font-semibold'>{name}</h3>
-            <hr className='my-4' />
+            <h3 className='text-lg font-semibold text-gray-900 dark:text-white'>{name}</h3>
+            <hr className='my-4 border-gray-200 dark:border-slate-700' />
             <div className='flex flex-wrap gap-2'>
                 {data.map(filter => (
                     <div key={filter.id} className='flex items-center'>
-                        <Button className={cn("rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300", selectedValue === filter.id && "bg-black text-white")}
+                        <Button className={cn("rounded-md text-sm text-gray-800 dark:text-gray-300 p-2 bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-600", selectedValue === filter.id && "bg-black dark:bg-slate-600 text-white")}
                         onClick={() => onClick(filter.id)}>
                             {filter.name}
                         </Button>

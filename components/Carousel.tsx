@@ -54,8 +54,8 @@ const Carousel = () => {
           <Image
             src={carouselItems[currentIndex].image}
             alt={carouselItems[currentIndex].title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: 'cover' }}
           />
           <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white p-4">
             <motion.h2

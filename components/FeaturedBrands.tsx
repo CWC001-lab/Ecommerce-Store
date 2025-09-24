@@ -3,39 +3,39 @@ import Image from 'next/image';
 
 const brands = [
   // Fashion Brands
-  { name: 'Gucci', logo: 'https://www.gucci.com/images/logo.svg' },
-  { name: 'Louis Vuitton', logo: 'https://us.louisvuitton.com/static_lvfront/favicon.ico' },
-  { name: 'Chanel', logo: 'https://www.chanel.com/us/img/prd/favicon.ico' },
-  { name: 'Prada', logo: 'https://www.prada.com/content/dam/pradanux/favicon/favicon.ico' },
-  { name: 'Hermès', logo: 'https://www.hermes.com/sites/all/themes/custom/hermes/favicon.ico' },
+  { name: 'Gucci', logo: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Louis Vuitton', logo: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Chanel', logo: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Prada', logo: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Hermès', logo: 'https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=200&h=200&fit=crop&crop=center' },
 
   // Skincare Brands
-  { name: 'Estée Lauder', logo: 'https://www.esteelauder.com/media/export/cms/icons/favicon.ico' },
-  { name: 'Clinique', logo: 'https://www.clinique.com/media/export/cms/icons/favicon.ico' },
-  { name: 'La Mer', logo: 'https://www.cremedelamer.com/media/export/cms/icons/favicon.ico' },
-  { name: 'SK-II', logo: 'https://www.sk-ii.com/favicon.ico' },
-  { name: 'Kiehl\'s', logo: 'https://www.kiehls.com/on/demandware.static/Sites-kiehls-us-Site/-/default/dw4dd3c8b7/images/favicon.ico' },
+  { name: 'Estée Lauder', logo: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Clinique', logo: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=200&h=200&fit=crop&crop=center' },
+  { name: 'La Mer', logo: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=200&h=200&fit=crop&crop=center' },
+  { name: 'SK-II', logo: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Kiehl\'s', logo: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=200&h=200&fit=crop&crop=center' },
 
   // Perfume Brands
-  { name: 'Dior', logo: 'https://www.dior.com/favicon.ico' },
-  { name: 'Tom Ford', logo: 'https://www.tomford.com/on/demandware.static/Sites-tomford-us-Site/-/default/dw9f4d4a8e/images/favicon.ico' },
-  { name: 'Jo Malone', logo: 'https://www.jomalone.com/media/export/cms/icons/favicon.ico' },
-  { name: 'Creed', logo: 'https://www.creedboutique.com/on/demandware.static/Sites-creed-us-Site/-/default/dw76f8b9c1/images/favicon.ico' },
-  { name: 'Byredo', logo: 'https://www.byredo.com/favicon.ico' },
+  { name: 'Dior', logo: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Tom Ford', logo: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Jo Malone', logo: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Creed', logo: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Byredo', logo: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&h=200&fit=crop&crop=center' },
 
   // Shoe Brands
-  { name: 'Nike', logo: 'https://www.nike.com/favicon.ico' },
-  { name: 'Adidas', logo: 'https://www.adidas.com/static/on/demandware.static/-/Sites-adidas-US-Library/default/dw7f34a5c4/favicon.ico' },
-  { name: 'Christian Louboutin', logo: 'https://us.christianlouboutin.com/favicon.ico' },
-  { name: 'Jimmy Choo', logo: 'https://row.jimmychoo.com/on/demandware.static/-/Sites-jch-master-catalog/default/dw9f4d4a8e/images/favicon.ico' },
-  { name: 'Manolo Blahnik', logo: 'https://www.manoloblahnik.com/favicon.ico' },
+  { name: 'Nike', logo: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Adidas', logo: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Christian Louboutin', logo: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Jimmy Choo', logo: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Manolo Blahnik', logo: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=200&h=200&fit=crop&crop=center' },
 
   // Clothes Brands
-  { name: 'Zara', logo: 'https://static.zara.net/stdstatic/4.13.0/images/favicon-32x32.png' },
-  { name: 'H&M', logo: 'https://www2.hm.com/favicon.ico' },
-  { name: 'Uniqlo', logo: 'https://www.uniqlo.com/favicon.ico' },
-  { name: 'COS', logo: 'https://www.cosstores.com/favicon.ico' },
-  { name: 'Mango', logo: 'https://st.mngbcn.com/images/headerFooter/favicon/favicon.ico' },
+  { name: 'Zara', logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center' },
+  { name: 'H&M', logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Uniqlo', logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center' },
+  { name: 'COS', logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center' },
+  { name: 'Mango', logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=200&h=200&fit=crop&crop=center' },
 ];
 
 const FeaturedBrands = () => {
@@ -50,9 +50,12 @@ const FeaturedBrands = () => {
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                   className="transition-opacity duration-300 group-hover:opacity-100 opacity-50"
+                  onError={(e) => {
+                    e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJyYW5kPC90ZXh0Pjwvc3ZnPg==';
+                  }}
                 />
               </div>
             </div>
@@ -65,9 +68,12 @@ const FeaturedBrands = () => {
                 <Image
                   src={brand.logo}
                   alt={brand.name}
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                   className="transition-opacity duration-300 group-hover:opacity-100 opacity-50"
+                  onError={(e) => {
+                    e.currentTarget.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJyYW5kPC90ZXh0Pjwvc3ZnPg==';
+                  }}
                 />
               </div>
             </div>

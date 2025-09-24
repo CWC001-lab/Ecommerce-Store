@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-slate-900">
       {/* Hero Section */}
       <div className="relative h-96 bg-cover bg-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')"}}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -16,11 +16,11 @@ const AboutPage = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-4">Our Story</h2>
-            <p className="mb-4">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Our Story</h2>
+            <p className="mb-4 text-gray-700 dark:text-gray-300">
               Fashion by Oreoluwa was born out of a passion for helping people look and feel their best. Founded in 2020, we've quickly become a go-to destination for fashion enthusiasts, skincare aficionados, and fragrance lovers alike.
             </p>
-            <p className="mb-4">
+            <p className="mb-4 text-gray-700 dark:text-gray-300">
               Our curated collection brings together the best in clothing, skincare, perfumes, and accessories, all carefully selected to help you express your unique style and enhance your natural beauty.
             </p>
           </div>
@@ -37,15 +37,15 @@ const AboutPage = () => {
 
         {/* Mission Statement */}
         <div className="my-12 text-center">
-          <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
-          <p className="max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Our Mission</h2>
+          <p className="max-w-2xl mx-auto text-gray-700 dark:text-gray-300">
             At Fashion by Oreoluwa, we're committed to empowering individuals to embrace their unique beauty and style. We believe that everyone deserves access to high-quality fashion, skincare, and fragrances that make them feel confident and beautiful.
           </p>
         </div>
 
         {/* Product Categories */}
         <div className="my-12">
-          <h2 className="text-3xl font-bold mb-6 text-center">What We Offer</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">What We Offer</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <CategoryCard 
               title="Fashion" 
@@ -67,7 +67,7 @@ const AboutPage = () => {
 
         {/* Values */}
         <div className="my-12">
-          <h2 className="text-3xl font-bold mb-6 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-white">Our Values</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {[
               { title: 'Quality', description: 'We source only the finest products to ensure your satisfaction.', imageUrl: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' },
@@ -75,7 +75,7 @@ const AboutPage = () => {
               { title: 'Inclusivity', description: 'Our products cater to diverse skin types, tones, and personal styles.', imageUrl: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' },
               { title: 'Customer Care', description: 'Your satisfaction is our top priority, and we\'re always here to help.', imageUrl: 'https://images.unsplash.com/photo-1556745757-8d76bdb6984b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' }
             ].map((value) => (
-              <div key={value.title} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div key={value.title} className="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
                 <div className="relative h-48">
                   <Image 
                     src={value.imageUrl} 
@@ -85,8 +85,8 @@ const AboutPage = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                  <p>{value.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{value.title}</h3>
+                  <p className="text-gray-700 dark:text-gray-300">{value.description}</p>
                 </div>
               </div>
             ))}
@@ -95,8 +95,8 @@ const AboutPage = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-12">
-          <h2 className="text-3xl font-bold mb-4">Join Our Community</h2>
-          <p className="mb-6">Experience the best in fashion, skincare, and fragrances with Fashion by Oreoluwa.</p>
+          <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Join Our Community</h2>
+          <p className="mb-6 text-gray-700 dark:text-gray-300">Experience the best in fashion, skincare, and fragrances with Fashion by Oreoluwa.</p>
           <a href="/products" className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition duration-300">
             Shop Now
           </a>
@@ -113,7 +113,7 @@ interface CategoryCardProps {
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, imageUrl }) => (
-  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+  <div className="bg-white dark:bg-slate-800 rounded-lg shadow-md overflow-hidden">
     <div className="relative h-48">
       <Image 
         src={imageUrl} 
@@ -123,8 +123,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, description, imageUr
       />
     </div>
     <div className="p-6">
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p>{description}</p>
+      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{title}</h3>
+      <p className="text-gray-700 dark:text-gray-300">{description}</p>
     </div>
   </div>
 );

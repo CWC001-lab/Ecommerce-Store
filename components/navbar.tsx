@@ -21,7 +21,7 @@ const Navbar = async () => {
     ];
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-white border-b">
+        <div className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
             <Container>
                 <NavbarClient categories={categories || []} routes={routes} />
             </Container>

@@ -3,9 +3,9 @@ import { FaFacebook, FaWhatsapp, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const SocialIcons = () => {
   return (
-    <div className="w-full md:w-[70%] mx-auto bg-gray-100 rounded-lg shadow-md p-6 mt-8">
-      <h2 className="text-2xl font-bold text-center mb-4">Join the Fashion by Oreoluwa Community</h2>
-      <p className="text-center mb-6">Stay connected for the latest in fashion, skincare, and fragrances!</p>
+    <div className="w-full md:w-[70%] mx-auto bg-gray-100 dark:bg-slate-800 rounded-lg shadow-md p-6 mt-8 border dark:border-slate-700">
+      <h2 className="text-2xl font-bold text-center mb-4 text-gray-900 dark:text-white">Join the Fashion by Oreoluwa Community</h2>
+      <p className="text-center mb-6 text-gray-700 dark:text-gray-300">Stay connected for the latest in fashion, skincare, and fragrances!</p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <SocialLink 
           icon={<FaWhatsapp size={32} />} 
@@ -32,7 +32,7 @@ const SocialIcons = () => {
           text="Explore our Instagram for stunning product showcases and tutorials"
         />
       </div>
-      <p className="text-center mt-6 text-sm text-gray-600">Join us today and elevate your style with Fashion by Oreoluwa!</p>
+      <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">Join us today and elevate your style with Fashion by Oreoluwa!</p>
     </div>
   );
 };
@@ -49,10 +49,10 @@ const SocialLink: React.FC<SocialLinkProps> = ({ icon, color, href, text }) => (
     href={href} 
     target="_blank" 
     rel="noopener noreferrer" 
-    className={`flex flex-col items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 text-${color}-600 hover:text-${color}-800`}
+    className={`flex flex-col items-center p-4 bg-white dark:bg-slate-700 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 text-${color}-600 hover:text-${color}-800 border dark:border-slate-600`}
   >
     {icon}
-    <p className="mt-2 text-sm text-center">{text}</p>
+    <p className="mt-2 text-sm text-center text-gray-700 dark:text-gray-300">{text}</p>
   </a>
 );
 

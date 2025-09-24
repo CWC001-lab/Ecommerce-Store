@@ -15,7 +15,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
     const product = await getProduct(params.productId);
     const suggestProducts = await getProducts({ categoryId: product?.category?.id })
     return ( 
-        <div className="bg-white">
+        <div className="bg-white dark:bg-slate-900">
             <Container>
                 <div className="px-4 py-10 sm:px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
