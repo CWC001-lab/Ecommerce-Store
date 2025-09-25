@@ -5,23 +5,34 @@ import { toast } from "react-hot-toast";
 
 // Migration function to handle old cart data format
 const migrateCartData = (data: any): CartItem[] => {
-    if (!data || !Array.isArray(data)) return [];
+    console.log('🛒 Migrating cart data:', data);
+    if (!data || !Array.isArray(data)) {
+        console.log('🛒 No valid cart data found, returning empty array');
+        return [];
+    }
     
-    return data.map((item: any) => {
+    const migratedData = data.map((item: any) => {
+        console.log('🛒 Processing cart item:', item);
         // If item already has the new format (product and quantity), return as is
         if (item.product && typeof item.quantity === 'number') {
+            console.log('🛒 Item already in new format:', item);
             return item;
         }
         // If item is in old format (just Product), convert to new format
         if (item.id && item.name) {
+            console.log('🛒 Converting old format item to new format:', item);
             return {
                 product: item,
                 quantity: 1
             };
         }
         // Skip invalid items
+        console.log('🛒 Skipping invalid item:', item);
         return null;
     }).filter(Boolean);
+    
+    console.log('🛒 Migrated cart data result:', migratedData);
+    return migratedData;
 };
 
 interface CartItem {
@@ -77,14 +88,22 @@ const useCart = create(persist<CartStore>((set, get) =>({
             )
         });
     },
-    removeAll: () => set({ items: [] }),
+    removeAll: () => {
+        console.log('🛒 Clearing all cart items');
+        set({ items: [] });
+    },
 }), {
     name: "cart-storage",
     storage: createJSONStorage(() => localStorage),
     onRehydrateStorage: () => (state) => {
+        console.log('🛒 Cart rehydration starting, state:', state);
         if (state) {
             // Migrate old cart data to new format
+            const originalItems = state.items;
             state.items = migrateCartData(state.items);
+            console.log('🛒 Cart rehydration complete, original items:', originalItems, 'migrated items:', state.items);
+        } else {
+            console.log('🛒 No state found during rehydration');
         }
     }
 }))

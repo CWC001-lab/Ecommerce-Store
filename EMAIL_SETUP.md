@@ -37,6 +37,8 @@ ADMIN_EMAIL_URL=http://localhost:3000
    - Generate a new app password for "Mail"
    - Use this password (not your regular Gmail password) for `EMAIL_PASSWORD`
 
+
+
 ## How It Works
 
 1. **Store App**: Handles receipt uploads and stores data in database

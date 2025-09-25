@@ -25,9 +25,9 @@ const HomePageClient: React.FC<HomePageClientProps> = ({ products, categories })
             <Carousel />
             
             {/* About section - moved before categories */}
-            <Container>
+            {/* <Container>
                 <AboutUs />
-            </Container>
+            </Container> */}
             
             {/* Categories section with adjusted width */}
             {categories && categories.length > 0 && (

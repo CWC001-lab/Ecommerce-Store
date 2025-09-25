@@ -15,11 +15,11 @@ const carouselItems = [
     title: "Trendsetting Fashion",
     description: "Explore our latest arrivals in clothing, shoes, and accessories for every occasion."
   },
-  {
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    title: "Radiant Skincare",
-    description: "Unveil your natural beauty with our premium skincare products and expert beauty tips."
-  },
+  // {
+  //   image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+  //   title: "Radiant Skincare",
+  //   description: "Unveil your natural beauty with our premium skincare products and expert beauty tips."
+  // },
   {
     image: "https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
     title: "Captivating Fragrances",
