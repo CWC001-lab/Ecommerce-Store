@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link";
+import Image from "next/image";
 import { MainNav } from "@/components";
 import NavbarActions from "./navbar-actions";
 import ThemeToggle from "./theme-toggle";
@@ -38,7 +39,14 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ categories, routes }) => {
         <>
             <div className="relative flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                 <Link href="/" className="flex-shrink-0">
-                    <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100">F-B-O</p>
+                    <Image 
+                        src="/logo.png" 
+                        alt="FBO Prestige" 
+                        width={120} 
+                        height={40} 
+                        className="h-8 sm:h-10 w-auto"
+                        priority
+                    />
                 </Link>
                 <div className="hidden md:flex md:flex-grow md:justify-center">
                     <MainNav data={categories} routes={routes} />

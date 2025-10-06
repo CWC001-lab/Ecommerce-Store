@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaWhatsapp, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaWhatsapp, FaTiktok } from 'react-icons/fa';
 
 const SocialIcons = () => {
   return (
@@ -10,16 +10,16 @@ const SocialIcons = () => {
         <SocialLink 
           icon={<FaWhatsapp size={32} />} 
           color="green" 
-          href="https://chat.whatsapp.com/your-group-invite-link"
+          href="wa.me/2349036472236"
           text="Join our WhatsApp group for exclusive deals and beauty tips!"
         />
         <SocialLink 
-          icon={<FaFacebook size={32} />} 
-          color="blue" 
-          href="https://facebook.com"
+          icon={<FaTiktok size={32} />} 
+          color="red" 
+          href="www.tiktok.com/@fbo_scentsation"
           text="Follow our Facebook page for style inspiration and product launches"
         />
-        <SocialLink 
+        {/* <SocialLink 
           icon={<FaTwitter size={32} />} 
           color="sky" 
           href="https://twitter.com"
@@ -30,7 +30,7 @@ const SocialIcons = () => {
           color="pink" 
           href="https://instagram.com"
           text="Explore our Instagram for stunning product showcases and tutorials"
-        />
+        /> */}
       </div>
       <p className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">Join us today and elevate your style with Fashion by Oreoluwa!</p>
     </div>
