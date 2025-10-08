@@ -2,8 +2,10 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { Product, Category, Color, Size } from "@/types";
+import { GroupedProduct, groupProductsByVariant } from "@/lib/utils";
 import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
+import GroupedProductCard from "@/components/ui/grouped-product-card";
 
 interface ProductsPageClientProps {
     products: Product[];
@@ -35,14 +37,17 @@ const ProductsPageClient: React.FC<ProductsPageClientProps> = ({
             return matchesSearch && matchesCategory && matchesColor && matchesSize;
         });
 
-        // Sort products based on selected option
+        // Group products by name and image
+        const groupedProducts = groupProductsByVariant(filtered);
+        
+        // Sort grouped products based on selected option
         if (sortBy === 'price-low') {
-            filtered = filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            groupedProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         } else if (sortBy === 'price-high') {
-            filtered = filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+            groupedProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
         }
 
-        return filtered;
+        return groupedProducts;
     }, [products, searchTerm, selectedCategory, selectedColor, selectedSize, sortBy]);
 
     // Reset displayed products when filters change
@@ -243,9 +248,9 @@ const ProductsPageClient: React.FC<ProductsPageClientProps> = ({
                 ) : (
                     <div className="space-y-6">
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                            {visibleProducts.map(item => (
+                            {visibleProducts.map((item: GroupedProduct) => (
                                 <div key={item.id}>
-                                    <ProductCard key={item.id} data={item} />
+                                    <GroupedProductCard data={item} />
                                 </div>
                             ))}
                         </div>

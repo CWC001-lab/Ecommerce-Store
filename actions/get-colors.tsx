@@ -1,10 +1,10 @@
 import { Color } from "@/types";
-
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/colors`
+import { getStoreApiUrl } from '@/lib/utils';
 
 const getColors = async (): Promise<Color[]> => {
     try {
-        const res = await fetch(URL, {
+        const url = getStoreApiUrl(undefined, 'colors');
+        const res = await fetch(url, {
             next: { revalidate: 60 }, // Cache for 1 minute
             signal: AbortSignal.timeout(5000) // 5 second timeout
         });

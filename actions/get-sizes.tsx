@@ -1,10 +1,10 @@
 import { Size } from "@/types";
-
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/sizes`
+import { getStoreApiUrl } from '@/lib/utils';
 
 const getSizes = async (): Promise<Size[]> => {
     try {
-        const res = await fetch(URL, {
+        const url = getStoreApiUrl(undefined, 'sizes');
+        const res = await fetch(url, {
             next: { revalidate: 60 }, // Cache for 1 minute
             signal: AbortSignal.timeout(5000) // 5 second timeout
         });

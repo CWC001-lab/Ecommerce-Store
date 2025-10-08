@@ -45,9 +45,9 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
 
     // Bank details for Fashion by Oreoluwa
     const bankDetails = {
-        bankName: "Access Bank",
-        accountName: "FASHION BY OREOLUWA",
-        accountNumber: "1234567890"
+        bankName: "First Bank",
+        accountName: "FBO PRESTIGE",
+        accountNumber: "2047086092"
     };
 
     // Form persistence key
@@ -91,7 +91,7 @@ const OrderConfirmationModal: React.FC<OrderConfirmationModalProps> = ({
                 }
             }
         }
-    }, [isOpen]);
+    }, [isOpen, setAddress, setCustomerEmail, setCustomerName, setPhoneNumber]);
 
     // Save form data to localStorage whenever form fields change (only when modal is open)
     useEffect(() => {

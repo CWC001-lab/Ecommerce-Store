@@ -1,6 +1,6 @@
 "use client"
 
-import { Product } from "@/types";
+import { GroupedProduct, getProductPriceRange, getAvailableSizes, getAvailableColors } from "@/lib/utils";
 import Image from "next/image";
 import IconButton from "@/components/ui/icon-button";
 import { Expand, ShoppingCart, Minus } from "lucide-react";
@@ -8,102 +8,69 @@ import Currency from "@/components/ui/currency";
 import { useRouter } from "next/navigation";
 import PreviewModal from './../preview-modal';
 import usePreviewModal from "@/hooks/use-preview-modal";
-import { MouseEventHandler, useState, useEffect } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import useCart from "@/hooks/use-cart";
 import { VariantSelector } from "@/components/ui/variant-selector";
-import { getAvailableSizes, getAvailableColors, getProductPriceRange } from "@/lib/utils";
 
-interface ProductCardProps {
-    data: Product & { variants?: Product[] };
+interface GroupedProductCardProps {
+    data: GroupedProduct;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+const GroupedProductCard: React.FC<GroupedProductCardProps> = ({ data }) => {
     const cart = useCart();
     const previewModal = usePreviewModal();
     const router = useRouter();
     const [variantModalOpen, setVariantModalOpen] = useState(false);
-    const [isMobileActive, setIsMobileActive] = useState(false);
-    const [variants, setVariants] = useState<Product[]>([]);
     
-    // Use variants from data structure (like GroupedProductCard)
-    const productVariants = data.variants || variants;
-    const hasVariants = data.hasVariants && productVariants.length > 0;
-    
-    // Check if any variant is in cart (like GroupedProductCard)
-    const isInCart = hasVariants ? 
-        productVariants.some(variant => cart.items.some(item => item.product.id === variant.id)) :
-        cart.items.some(item => item.product.id === data.id);
-
-    // Fetch variants when component mounts if product has variants but no variants in data
-    useEffect(() => {
-        if (data.hasVariants && !data.variants) {
-            fetch(`/api/${data.id}/variants`)
-                .then(res => res.json())
-                .then(variantsData => {
-                    setVariants(variantsData);
-                })
-                .catch(err => {
-                    console.error('Error fetching variants:', err);
-                    setVariants([]);
-                });
-        }
-    }, [data.id, data.hasVariants, data.variants]);
-
-    // Get available sizes, colors, and price range (exactly like GroupedProductCard)
-    const availableSizes = hasVariants ? getAvailableSizes(productVariants) : [];
-    const availableColors = hasVariants ? getAvailableColors(productVariants) : [];
-    const priceRange = hasVariants ? getProductPriceRange(productVariants) : null;
+    // Check if any variant is in cart
+    const isInCart = data.variants.some(variant => 
+        cart.items.some(item => item.product.id === variant.id)
+    );
     
     // const handleClick = () => {
-    //     setIsMobileActive(false);
     //     router.push(`/product/${data?.id}`)
     // }
 
 
     const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
-        setIsMobileActive(false);
-        previewModal.onOpen(data);
+        previewModal.onOpen(data.variants[0]);
     }
 
     const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
-        setIsMobileActive(false);
-        if (hasVariants) {
+        if (data.hasVariants) {
             setVariantModalOpen(true);
         } else {
-            cart.addItem(data);
+            cart.addItem(data.variants[0]);
         }
     }
 
     const onRemoveFromCart: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
-        setIsMobileActive(false);
-        if (hasVariants) {
-            // Remove all variants from cart (like GroupedProductCard)
-            productVariants.forEach(variant => {
-                cart.removeItem(variant.id);
-            });
-        } else {
-            cart.removeItem(data.id);
-        }
-    };
+        // Remove all variants from cart
+        data.variants.forEach(variant => {
+            cart.removeItem(variant.id);
+        });
+    }
 
-    const handleVariantAddToCart = (selections: { variant: Product; quantity: number }[]) => {
-        setIsMobileActive(false);
+    const handleVariantAddToCart = (selections: { variant: any; quantity: number }[]) => {
         // Add all selected variants to cart
         selections.forEach(selection => {
             cart.addItem(selection.variant, selection.quantity);
         });
-    };
+    }
 
     const handleVariantRemoveFromCart = () => {
-        setIsMobileActive(false);
-        // Remove all variants from cart (like GroupedProductCard)
-        productVariants.forEach(variant => {
+        // Remove all variants from cart
+        data.variants.forEach(variant => {
             cart.removeItem(variant.id);
         });
-    };
+    }
+
+    const availableSizes = getAvailableSizes(data.variants);
+    const availableColors = getAvailableColors(data.variants);
+    const priceRange = getProductPriceRange(data.variants);
 
     return ( 
         <>
@@ -127,9 +94,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                         {data.category.name}
                     </p>
                 </div>
-
-                {/* Variant Info - Exactly like GroupedProductCard */}
-                {hasVariants && (
+                
+                {/* Variant Info */}
+                {data.hasVariants && (
                     <div className="space-y-2">
                         {/* Available Sizes */}
                         {availableSizes.length > 0 && (
@@ -171,14 +138,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                     </div>
                 )}
                 
-                {/* Price - Exactly like GroupedProductCard */}
+                {/* Price */}
                 <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-black dark:text-white">
-                        {hasVariants && priceRange ? priceRange : <Currency value={data?.price} />}
+                        {priceRange}
                     </span>
-                    {hasVariants && (
+                    {data.hasVariants && (
                         <span className="text-xs text-gray-600 dark:text-gray-400">
-                            {productVariants.length} variants
+                            {data.variants.length} variants
                         </span>
                     )}
                 </div>
@@ -193,20 +160,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                                 : 'bg-black dark:bg-white text-white dark:text-black border-black dark:border-white hover:bg-gray-800 dark:hover:bg-gray-200'
                         }`}
                     >
-                        {isInCart ? 'Remove from Cart' : (hasVariants ? 'Choose Options' : 'Add to Cart')}
+                        {isInCart ? 'Remove from Cart' : (data.hasVariants ? 'Choose Options' : 'Add to Cart')}
                     </button>
                 </div>
             </div>
 
-            {/* Variant Selector Modal - Exactly like GroupedProductCard */}
+            {/* Variant Selector Modal */}
             <VariantSelector
                 isOpen={variantModalOpen}
-                onClose={() => {
-                    setVariantModalOpen(false);
-                    setIsMobileActive(false);
-                }}
-                product={productVariants.length > 0 ? productVariants[0] : data}
-                variants={productVariants}
+                onClose={() => setVariantModalOpen(false)}
+                product={data.variants[0]}
+                variants={data.variants}
                 onAddToCart={handleVariantAddToCart}
                 isInCart={isInCart}
                 onRemoveFromCart={handleVariantRemoveFromCart}
@@ -215,4 +179,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     );
 }
 
-export default ProductCard;
+export default GroupedProductCard;

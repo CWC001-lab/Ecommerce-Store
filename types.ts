@@ -18,7 +18,14 @@ export interface Product {
     isFeatured: boolean;
     size: Size;
     color: Color;
-    images: Image[]
+    images: Image[];
+    hasVariants?: boolean;
+    parentProductId?: string;
+    variantGroupId?: string;
+    parent?: {
+        id: string;
+        name: string;
+    };
 }
 
 export interface Image {
@@ -36,3 +43,6 @@ export interface Color {
     name: string;
     value: string;
 }
+
+// Re-export GroupedProduct from utils for convenience
+export type { GroupedProduct } from '@/lib/utils';

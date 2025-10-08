@@ -42,7 +42,7 @@ interface CartItem {
 
 interface CartStore {
     items: CartItem[];
-    addItem: (data: Product) => void;
+    addItem: (data: Product, quantity?: number) => void;
     removeItem: (id: string) => void;
     updateQuantity: (id: string, quantity: number) => void;
     removeAll: () => void;
@@ -50,7 +50,7 @@ interface CartStore {
 
 const useCart = create(persist<CartStore>((set, get) =>({
     items: [],
-    addItem: (data: Product) => {
+    addItem: (data: Product, quantity: number = 1) => {
         const currentItems = get().items;
         const existingItem = currentItems.find(item => item.product.id === data.id);
 
@@ -59,15 +59,15 @@ const useCart = create(persist<CartStore>((set, get) =>({
             set({ 
                 items: currentItems.map(item => 
                     item.product.id === data.id 
-                        ? { ...item, quantity: item.quantity + 1 }
+                        ? { ...item, quantity: item.quantity + quantity }
                         : item
                 )
             });
-            toast.success("Quantity increased.");
+            toast.success(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to cart.`);
         } else {
-            // Add new item with quantity 1
-            set({ items: [...currentItems, { product: data, quantity: 1 }] });
-            toast.success("Item added to cart.");
+            // Add new item with specified quantity
+            set({ items: [...currentItems, { product: data, quantity }] });
+            toast.success(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to cart.`);
         }
     },
     removeItem: (id: string) => {

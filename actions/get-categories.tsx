@@ -1,10 +1,10 @@
 import { Category } from "@/types";
-
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories`
+import { getStoreApiUrl } from '@/lib/utils';
 
 const getCategories = async (): Promise<Category[]> => {
     try {
-        const res = await fetch(URL, {
+        const url = getStoreApiUrl(undefined, 'categories');
+        const res = await fetch(url, {
             next: { revalidate: 60 }, // Cache for 1 minute
             signal: AbortSignal.timeout(5000) // 5 second timeout
         });

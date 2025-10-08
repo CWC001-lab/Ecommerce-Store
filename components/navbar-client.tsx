@@ -44,7 +44,7 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ categories, routes }) => {
                         alt="FBO Prestige" 
                         width={120} 
                         height={40} 
-                        className="h-8 sm:h-10 w-auto"
+                        className="h-8 sm:h-10 w-auto dark:brightness-0 dark:invert"
                         priority
                     />
                 </Link>

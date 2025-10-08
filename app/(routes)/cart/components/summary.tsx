@@ -133,7 +133,15 @@ const Summary = () => {
                     id: item.product.id,
                     name: item.product.name,
                     quantity: item.quantity,
-                    price: parseFloat(item.product.price)
+                    price: parseFloat(item.product.price),
+                    color: {
+                        name: item.product.color.name,
+                        value: item.product.color.value
+                    },
+                    size: {
+                        name: item.product.size.name,
+                        value: item.product.size.value
+                    }
                 })),
                 totalAmount: totalPrice,
                 receiptData: parsedReceiptData // Include receipt data if available

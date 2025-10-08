@@ -1,9 +1,9 @@
 import { Product } from "@/types";
-
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`
+import { getStoreApiUrl } from '@/lib/utils';
 
 const getProduct = async (id: string): Promise<Product> => {
-    const res = await fetch(`${URL}/${id}`);
+    const url = getStoreApiUrl(undefined, `products/${id}`);
+    const res = await fetch(url);
     return res.json();
 }
 

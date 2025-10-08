@@ -1,8 +1,10 @@
 "use client"
 import { useState, useMemo, useEffect } from 'react';
 import { Product, Category } from "@/types";
+import { GroupedProduct, groupProductsByVariant } from "@/lib/utils";
 import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
+import GroupedProductCard from "@/components/ui/grouped-product-card";
 
 interface FeaturedProductsProps {
     products: Product[];
@@ -30,7 +32,17 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products, categorie
             filtered = filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
         }
 
-        return filtered;
+        // Group products by name and image
+        const groupedProducts = groupProductsByVariant(filtered);
+        
+        // Sort grouped products based on selected option
+        if (sortBy === 'price-low') {
+            groupedProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+        } else if (sortBy === 'price-high') {
+            groupedProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+        }
+
+        return groupedProducts;
     }, [products, searchTerm, selectedCategory, sortBy]);
 
     // Reset displayed products when filters change
@@ -169,9 +181,9 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products, categorie
             ) : (
                 <div className="space-y-6">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {visibleProducts.map(item => (
+                        {visibleProducts.map((item: GroupedProduct) => (
                             <div key={item.id}>
-                                <ProductCard key={item.id} data={item} />
+                                <GroupedProductCard data={item} />
                             </div>
                         ))}
                     </div>
